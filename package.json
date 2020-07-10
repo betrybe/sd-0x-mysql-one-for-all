@@ -1,7 +1,7 @@
 {
-  "name": "sd-0x-mysql-all-for-one",
+  "name": "sd-0x-mysql-one-for-all",
   "version": "1.0.0",
-  "description": "Project for Block 8",
+  "description": "Project MySQL One For All",
   "main": "index.js",
   "scripts": {
     "test": "jest --runInBand",
@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/betrybe/sd-0x-mysql-all-for-one.git"
+    "url": "git+https://github.com/betrybe/sd-0x-mysql-one-for-all.git"
   },
   "keywords": [
     "javascript",
@@ -17,12 +17,12 @@
     "assert",
     "jest"
   ],
-  "author": "Jean Vasconcelos",
+  "author": "Trybe",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/betrybe/sd-0x-mysql-all-for-one/issues"
+    "url": "https://github.com/betrybe/sd-0x-mysql-one-for-all/issues"
   },
-  "homepage": "https://github.com/betrybe/sd-0x-mysql-all-for-one#readme",
+  "homepage": "https://github.com/betrybe/sd-0x-mysql-one-for-all#readme",
   "devDependencies": {
     "acorn": ">=5.7.4",
     "jest": "^24.9.0",
