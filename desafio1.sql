@@ -20,27 +20,23 @@ CREATE TABLE usuarios(
 
 CREATE TABLE artistas(
   id INT AUTO_INCREMENT,
-  nome_artista VARCHAR(100) NOT NULL,
+  nome VARCHAR(100) NOT NULL,
   PRIMARY KEY (id)
 ) engine = InnoDB;
 
 CREATE TABLE albuns(
   id INT AUTO_INCREMENT,
-  nome_album VARCHAR(100) NOT NULL,
-  PRIMARY KEY (id)
+  artista_id INT NOT NULL,
+  nome VARCHAR(100) NOT NULL,
+  PRIMARY KEY (id),
+  FOREIGN KEY (artista_id) REFERENCES artistas(id)
 ) engine = InnoDB;
 
 CREATE TABLE cancoes(
   id INT AUTO_INCREMENT,
-  nome_cancao VARCHAR(100) NOT NULL,
-  PRIMARY KEY (id)
-) engine = InnoDB;
-
-CREATE TABLE artistas_por_albuns(
-  artista_id INT NOT NULL,
   album_id INT NOT NULL,
-  PRIMARY KEY (artista_id, album_id),
-  FOREIGN KEY (artista_id) REFERENCES artistas(id),
+  nome VARCHAR(100) NOT NULL,
+  PRIMARY KEY (id),
   FOREIGN KEY (album_id) REFERENCES albuns(id)
 ) engine = InnoDB;
 
@@ -92,65 +88,38 @@ INSERT INTO usuarios (id, nome, idade, plano_id) VALUES
   (17, 'Bill', 20, 3),
   (18, 'Roger', 45, 1);
 
-INSERT INTO artistas (id, nome_artista) VALUES
+INSERT INTO artistas (id, nome) VALUES
   (1, 'Walter Phoenix'),
   (2, 'Peter Strong'),
   (3, 'Lance Day'),
   (4, 'Freedie Shannon');
 
-INSERT INTO albuns (id, nome_album) VALUES
-  (1, 'Envious'),
-  (2, 'Exuberant'),
-  (3, 'Hallowed Steam'),
-  (4, 'Incandescent'),
-  (5, 'Temporary Culture');
+INSERT INTO albuns (id, artista_id, nome) VALUES
+  (1, 1, 'Envious'),
+  (2, 1, 'Exuberant'),
+  (3, 2, 'Hallowed Steam'),
+  (4, 3, 'Incandescent'),
+  (5, 4, 'Temporary Culture');
 
-INSERT INTO cancoes (id, nome_cancao) VALUES
-  (1, 'Soul For Us'),
-  (2, 'Reflections Of Magic'),
-  (3, 'Dance With Her Own'),
-  (4, 'Troubles Of My Inner Fire'),
-  (5, 'Time Fireworks'),
-  (6, 'Magic Circus'),
-  (7, 'Honey, So Do I'),
-  (8, 'Sweetie, Let\'s Go Wild'),
-  (9, 'She Knows'),
-  (10, 'Fantasy For Me'),
-  (11, 'Celebration Of More'),
-  (12, 'Rock His Everything'),
-  (13, 'Home Forever'),
-  (14, 'Diamond Power'),
-  (15, 'Honey, Let\'s Be Silly'),
-  (16, 'Thang Of Thunder'),
-  (17, 'Words Of Her Life'),
-  (18, 'Without My Streets');
-
-INSERT INTO artistas_por_albuns(artista_id, album_id) VALUES
-  (1, 1),
-  (1, 2),
-  (2, 3),
-  (3, 4),
-  (4, 5);
-
-INSERT INTO albuns_por_cancoes(album_id, cancao_id) VALUES
-  (1, 1),
-  (1, 2),
-  (1, 3),
-  (2, 4),
-  (2, 5),
-  (3, 6),
-  (3, 7),
-  (3, 8),
-  (3, 9),
-  (4, 10),
-  (4, 11),
-  (4, 12),
-  (4, 13),
-  (4, 14),
-  (4, 15),
-  (5, 16),
-  (5, 17),
-  (5, 18);
+INSERT INTO cancoes (id, album_id, nome) VALUES
+  (1, 1, 'Soul For Us'),
+  (2, 1, 'Reflections Of Magic'),
+  (3, 1, 'Dance With Her Own'),
+  (4, 2, 'Troubles Of My Inner Fire'),
+  (5, 2, 'Time Fireworks'),
+  (6, 3, 'Magic Circus'),
+  (7, 3, 'Honey, So Do I'),
+  (8, 3, 'Sweetie, Let\'s Go Wild'),
+  (9, 3, 'She Knows'),
+  (10, 4, 'Fantasy For Me'),
+  (11, 4, 'Celebration Of More'),
+  (12, 4, 'Rock His Everything'),
+  (13, 4, 'Home Forever'),
+  (14, 4, 'Diamond Power'),
+  (15, 4, 'Honey, Let\'s Be Silly'),
+  (16, 5, 'Thang Of Thunder'),
+  (17, 5, 'Words Of Her Life'),
+  (18, 5, 'Without My Streets');
 
 INSERT INTO usuario_seguindo_artista(usuario_id, artista_id) VALUES
   (15, 1),
