@@ -3,14 +3,14 @@
   "tabela_que_contem_usuario": "usuarios",
   "coluna_plano": "nome",
   "tabela_que_contem_plano": "planos",
-  "coluna_historico_reproducao": "cancao_id",
-  "tabela_que_contem_historico_reproducao": "historico_reproducao",
-  "coluna_seguindo_artista": "artista_id",
-  "tabela_que_contem_seguindo_artista": "usuario_seguindo_artista",
+  "coluna_historico_de_reproducoes": "cancao_id",
+  "tabela_que_contem_historico_de_reproducoes": "historico_reproducao",
+  "coluna_seguindo_artistas": "artista_id",
+  "tabela_que_contem_seguindo_artistas": "usuario_seguindo_artista",
   "coluna_artista": "nome",
   "tabela_que_contem_artista": "artistas",
   "coluna_album": "nome",
   "tabela_que_contem_album": "albuns",
-  "coluna_cancao": "nome",
-  "tabela_que_contem_cancao": "cancoes"
+  "coluna_cancoes": "nome",
+  "tabela_que_contem_cancoes": "cancoes"
 }
