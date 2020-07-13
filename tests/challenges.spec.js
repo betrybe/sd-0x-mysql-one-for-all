@@ -73,9 +73,9 @@ describe('Desafios obrigatórios', () => {
 
     it('Verifica o histórico de reprodução', async () => {
       const {
-        tabela_que_contem_historico_reproducao: reproductionHistoryTable,
+        tabela_que_contem_historico_de_reproducoes: reproductionHistoryTable,
         tabela_que_contem_usuario: userTable,
-        tabela_que_contem_cancao: songTable,
+        tabela_que_contem_cancoes: songTable,
       } = JSON.parse(readFileSync('desafio1.json', 'utf8'));
 
       expect(reproductionHistoryTable).not.toBe(userTable);
@@ -94,7 +94,7 @@ describe('Desafios obrigatórios', () => {
 
     it('Verifica pessoas seguindo artistas', async () => {
       const {
-        tabela_que_contem_seguindo_artista: followingTable,
+        tabela_que_contem_seguindo_artistas: followingTable,
         tabela_que_contem_usuario: userTable,
         tabela_que_contem_artista: artistTable,
       } = JSON.parse(readFileSync('desafio1.json', 'utf8'));
@@ -132,7 +132,7 @@ describe('Desafios obrigatórios', () => {
 
     it('Verifica as canções', async () => {
       const {
-        tabela_que_contem_cancao: songTable,
+        tabela_que_contem_cancoes: songTable,
         tabela_que_contem_album: albumTable,
       } = JSON.parse(readFileSync('desafio1.json', 'utf8'));
 
