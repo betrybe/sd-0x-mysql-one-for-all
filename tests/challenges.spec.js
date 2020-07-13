@@ -43,6 +43,17 @@ describe('Desafios obrigatórios', () => {
       return (referenceCount === 1);
     };
 
+    const composedPrimaryKey = async (table) => {
+      const [{ PK_COUNT: pkCount }] = await sequelize.query(
+        `SELECT COUNT(COLUMN_NAME) AS PK_COUNT
+        FROM information_schema.KEY_COLUMN_USAGE
+        WHERE TABLE_NAME = '${table}' AND CONSTRAINT_NAME = 'PRIMARY';`,
+        { type: 'SELECT' }
+      );
+
+      return (pkCount > 1);
+    }
+
     it('Verifica os planos', async () => {
       const {
         tabela_que_contem_plano: planTable,
@@ -58,6 +69,27 @@ describe('Desafios obrigatórios', () => {
       expect(plansCount).toEqual([{ 'COUNT(*)': 3 }]);
 
       expect(await hasForeignKey(userTable, planTable)).toBeTruthy();
+    });
+
+    it('Verifica o histórico de reprodução', async () => {
+      const {
+        tabela_que_contem_historico_reproducao: reproductionHistoryTable,
+        tabela_que_contem_usuario: userTable,
+        tabela_que_contem_cancao: songTable,
+      } = JSON.parse(readFileSync('desafio1.json', 'utf8'));
+
+      expect(reproductionHistoryTable).not.toBe(userTable);
+      expect(reproductionHistoryTable).not.toBe(songTable);
+
+      const reproductionHistoryCount = await sequelize.query(
+        `SELECT COUNT(*) FROM ${reproductionHistoryTable};`, { type: 'SELECT' }
+      );
+
+      expect(reproductionHistoryCount).toEqual([{ 'COUNT(*)': 14 }]);
+
+      expect(await hasForeignKey(reproductionHistoryTable, songTable)).toBeTruthy();
+      expect(await hasForeignKey(reproductionHistoryTable, userTable)).toBeTruthy();
+      expect(await composedPrimaryKey(reproductionHistoryTable)).toBeTruthy();
     });
   });
 });
