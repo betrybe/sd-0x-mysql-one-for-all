@@ -91,5 +91,26 @@ describe('Desafios obrigatórios', () => {
       expect(await hasForeignKey(reproductionHistoryTable, userTable)).toBeTruthy();
       expect(await composedPrimaryKey(reproductionHistoryTable)).toBeTruthy();
     });
+
+    it('Verifica pessoas seguindo artistas', async () => {
+      const {
+        tabela_que_contem_seguindo_artista: followingTable,
+        tabela_que_contem_usuario: userTable,
+        tabela_que_contem_artista: artistTable,
+      } = JSON.parse(readFileSync('desafio1.json', 'utf8'));
+
+      expect(followingTable).not.toBe(userTable);
+      expect(followingTable).not.toBe(artistTable);
+
+      const reproductionHistoryCount = await sequelize.query(
+        `SELECT COUNT(*) FROM ${followingTable};`, { type: 'SELECT' }
+      );
+
+      expect(reproductionHistoryCount).toEqual([{ 'COUNT(*)': 8 }]);
+
+      expect(await hasForeignKey(followingTable, artistTable)).toBeTruthy();
+      expect(await hasForeignKey(followingTable, userTable)).toBeTruthy();
+      expect(await composedPrimaryKey(followingTable)).toBeTruthy();
+    });
   });
 });
