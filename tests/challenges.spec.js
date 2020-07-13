@@ -129,5 +129,22 @@ describe('Desafios obrigatórios', () => {
 
       expect(await hasForeignKey(albumTable, artistTable)).toBeTruthy();
     });
+
+    it('Verifica as canções', async () => {
+      const {
+        tabela_que_contem_cancao: songTable,
+        tabela_que_contem_album: albumTable,
+      } = JSON.parse(readFileSync('desafio1.json', 'utf8'));
+
+      expect(songTable).not.toBe(albumTable);
+
+      const songsCount = await sequelize.query(
+        `SELECT COUNT(*) FROM ${songTable};`, { type: 'SELECT' }
+      );
+
+      expect(songsCount).toEqual([{ 'COUNT(*)': 18 }]);
+
+      expect(await hasForeignKey(songTable, albumTable)).toBeTruthy();
+    });
   });
 });
