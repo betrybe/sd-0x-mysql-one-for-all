@@ -36,7 +36,8 @@ describe('Desafios obrigatórios', () => {
             SELECT COLUMN_NAME
                 FROM information_schema.KEY_COLUMN_USAGE
                 WHERE TABLE_NAME = '${referencedTable}' AND CONSTRAINT_NAME = 'PRIMARY'
-            );`
+            );`,
+        { type: 'SELECT' }
       );
 
       return (referenceCount === 1);
@@ -56,7 +57,7 @@ describe('Desafios obrigatórios', () => {
 
       expect(plansCount).toEqual([{ 'COUNT(*)': 3 }]);
 
-      expect(hasForeignKey(userTable, planTable)).toBeTruthy();
+      expect(await hasForeignKey(userTable, planTable)).toBeTruthy();
     });
   });
 });
