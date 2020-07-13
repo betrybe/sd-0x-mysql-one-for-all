@@ -21,7 +21,7 @@ A seguir, tem-se a apresentação de um problema que deve ser resolvido através
 2. O arquivo deve conter apenas o código SQL do desafio resolvido. **Não se esqueça de incluir o ponto e vírgula (";")** no final de suas queries e também de **colocar o nome do banco_de_dados.tabela por completo**, como no exemplo a seguir.
 
 ```sql
-SELECT * FROM spotifyclone.artista;
+SELECT * FROM SpotifyClone.artista;
 ```
 
 3. Atente-se a detalhes de digitação em seu código. Qualquer diferença em nomes, apelidos, ou CAIXA ALTA e caixa baixa podem invalidar suas respostas.
@@ -38,64 +38,49 @@ Você receberá uma tabela não normalizada semelhante ao que poderia ser uma ve
 
 2. Realizar os desafios no seu banco normalizado e populado.
 
-**Aviso:** Todos os dados da tabela abaixo são fictícios e foram gerados aleatoriamente através de ferramentas, com o intuito deixar o projeto mais real para vocês 😉. Quaisquer similaridades com informações reais são meras coincidências.
+**Aviso:** Todos os dados da tabela abaixo são fictícios e foram gerados aleatoriamente através de ferramentas, com o intuito de deixar o projeto mais real para vocês 😉. Quaisquer similaridades com informações reais são meras coincidências.
 
-**Observação:** O banco de dados real do Spotify é muito mais completo que a tabela abaixo. No entanto, use APENAS as informações passadas e solicitadas aqui. Não crie dados que não foram solicitados.
+**Observação:** O banco de dados real do Spotify é muito mais completo e complexo que o mostrado abaixo. No entanto, use APENAS as informações passadas e solicitadas aqui. Não crie dados que não foram solicitados.
 
 #### Normalize as tabelas para a 3ª Forma Normal
 
 Abaixo você pode visualizar e baixar uma planilha com as tabelas que deverão ser normalizadas:
 
-![Tabela não normalizada "Spotify Clone"](./images/non-normalized-table.png)
+![Tabela não normalizada "Spotify Clone"](./images/non-normalized-tables.png)
 [Faça o download dela aqui](./SpotifyClone-Non-NormalizedTable.xlsx)
 
-Antes de tudo, você deverá normalizar essas tabelas para a 3° Forma Normal. Monte quantas planilhas e tabelas forem necessárias para criar essa versão normalizada. Não é necessário criar o código SQL neste momento.
+Antes de tudo, você deverá modelar e normalizar essas tabelas para a 3° Forma Normal. Monte quantas planilhas e tabelas forem necessárias para criar essa versão normalizada, desde que você siga as regras de negócio. Não é necessário criar o código SQL neste momento.
 
 Embora não seja necessário, é recomendado que você crie suas planilhas na sequência 1ª -> 2ª -> 3ª Forma Normal.
 
 Caso haja dúvidas, consulte o material já passado até hoje para te auxiliar.
 
-Deve ser possível encontrar as informações abaixo em suas tabelas:
+Seu banco de dados deve seguir as regras de negócio e ser capaz de recuperar:
 
 * Informações sobre quais planos estão disponíveis e seus detalhes;
+  * Cada pessoa usuária pode possuir apenas um plano.
 
-* Informações sobre todos os artistas e seus detalhes (use informação abaixo);
+* Informações sobre todos as pessoas artistas;
+  * Uma pessoa artista pode ter vários álbuns;
+  * Uma pessoa artista pode ser seguida por várias pessoas usuárias.
 
-* Informações sobre todos os álbuns de cada artista (use informação abaixo);
+* Informações sobre todos os álbuns de cada artista;
+  * Para fins deste projeto, considere que cada álbum possui apenas uma pessoa artista como principal;
+  * Cada álbum possui várias canções.
 
-* Informações sobre todas as canções de cada álbum (use informação abaixo);
+* Informações sobre todas as canções de cada álbum;
+  * Para fins deste projeto, considere que cada canção está contida em apenas um álbum.
 
-* Informações sobre planos que um usuário ou uma usuária possui;
-
-* A relação que cada usuário ou usuária possui com um plano;
-
-* A relação que cada artista possui com um álbum;
-
-* A relação que cada canção possui com um álbum;
-
-* A relação de quais artistas um usuário ou uma usuária está seguindo;
-
-* A relação de todas as canções reproduzidas por um usuário ou uma usuária.
-
-Após ter deixado as tabelas na 3ª Forma Normal, faça quaisquer modificações que forem necessárias em suas tabelas para que elas possam ser capazes de armazenar as informações descritas abaixo:
-
-* Artista "***Walter Phoenix***" criou o álbum "***Envious***" com as canções *"Soul For Us"*,*"Reflections Of Magic"* e *"Dance With Her Own"*;
-
-* Artista "***Walter Phoenix***" criou o álbum "***Exuberant***" com as canções *"Troubles Of My Inner Fire"* e *"Time Fireworks"*;
-
-* Artista "***Peter Strong***" criou o álbum "***Hallowed Steam***" com as canções *"Magic Circus"*, *"Honey, So Do I"*,*"Sweetie, Let's Go Wild"* e *"She Knows"*;
-
-* Artista "***Lance Day***" crio o álbum "***Incandescent***" com as canções *"Fantasy For Me"*, *"Celebration Of More"*, *"Rock His Everything"*, *"Home Forever"*, *"Diamond Power"* e *"Honey,Let's Be Silly"*;
-
-* Artista "***Freedie Shannon***" criou o álbum "***Temporary Culture***" com as canções *"Thang Of Thunder"*, *"Words Of Her Life"* e *"Without My Streets"*.
-
-Caso sua estrutura ainda não atenda a esses requisitos, volte à estrutura que foi criada no passo anterior e faça as alterações necessárias para que suas tabelas possuam essas informações.
+* Informações sobre todas as pessoas usuárias, seus planos, seu histórico de reprodução e pessoas artistas seguidas.
+  * Uma pessoa usuária pode possuir apenas um plano;
+  * Cada música do histórico de reprodução pode aparecer uma única vez por pessoa (para simplificar, considere que o objetivo do histórico é saber **quais** canções já foram reproduzidas e **não quantas vezes** foram reproduzidas);
+  * Uma pessoa usuária pode seguir várias pessoas artistas, mas cada pessoa artista pode ser seguida apenas uma vez por pessoa usuária.
 
 ---
 
 ## Desafios SQL
 
-##### Desafio 1 - Transforme Suas planilhas em Código SQL
+##### Desafio 1 - Transforme a planilha em código SQL
 
 Seu desafio agora é pegar toda a estrutura que você criou na seção anterior e transformá-la em código SQL. Os detalhes estão a seguir:
 
@@ -105,10 +90,43 @@ Seu desafio agora é pegar toda a estrutura que você criou na seção anterior 
 
 * Providencie as queries necessárias para popular as tabelas de acordo com os dados listados na seção anterior.
 
-Crie somente um arquivo `SQL`. Seu código deverá ser similar ao seguinte:
+* Crie um arquivo de configurações `desafio1.json`, que mapeará em qual tabela e coluna se encontram as informações necessárias para a avaliação automatizada deste desafio. As configurações devem possuir o seguinte formato:
+
+```json
+{
+  "coluna_usuario": "nome-da-coluna",
+  "tabela_que_contem_usuario": "nome-da-tabela-que-armazena-a-coluna",
+  "coluna_plano": "nome-da-coluna",
+  "tabela_que_contem_plano": "nome-da-tabela-que-armazena-a-coluna",
+  "coluna_historico_de_reproducoes": "nome-da-coluna",
+  "tabela_que_contem_historico_de_reproducoes": "nome-da-tabela-que-armazena-a-coluna",
+  "coluna_seguindo_artistas": "nome-da-coluna",
+  "tabela_que_contem_seguindo_artistas": "nome-da-tabela-que-armazena-a-coluna",
+  "coluna_artista": "nome-da-coluna",
+  "tabela_que_contem_artista": "nome-da-tabela-que-armazena-a-coluna",
+  "coluna_album": "nome-da-coluna",
+  "tabela_que_contem_album": "nome-da-tabela-que-armazena-a-coluna",
+  "coluna_cancoes": "nome-da-coluna",
+  "tabela_que_contem_cancoes": "nome-da-tabela-que-armazena-a-coluna"
+}
+```
+
+Essa configuração deve ser feita baseada no seu banco de dados **após a normalização**. Ou seja, se você criou uma tabela chamada `users` que possui a coluna `name`, você substituiria `"coluna_usuario"` e `"tabela_que_contem_usuario"` da seguinte forma:
+
+```json
+{
+  "coluna_usuario": "name",
+  "tabela_que_contem_usuario": "users",
+  ...
+}
+```
+
+* Salve as queries criadas no arquivo `desafio1.sql`. Seu código deverá ser similar ao seguinte:
 
 ```sql
-CREATE DATABASE IF NOT EXISTS SpotifyClone;
+DROP DATABASE IF EXISTS SpotifyClone;
+
+CREATE DATABASE SpotifyClone;
 
 USE SpotifyClone;
 
@@ -133,6 +151,8 @@ INSERT INTO tabela2 (coluna1, coluna2)
        VALUES ('exemplo de dados 1', 'exemplo de dados X'),
               ('exemplo de dados 2', 'exemplo de dados Y');
 ```
+
+⚠️ Note que uma vez executado um teste, a sua base de dados `SpotifyClone` **será dropada**. Logo, **se atente** a salvar seu progresso nos arquivos de desafio! ⚠️
 
 ---
 
