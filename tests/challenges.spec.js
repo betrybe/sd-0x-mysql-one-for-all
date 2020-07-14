@@ -2,7 +2,7 @@ const { readFileSync } = require('fs');
 const { Sequelize } = require('sequelize');
 const Importer = require('mysql-import');
 
-describe('Desafios obrigatórios', () => {
+describe('Queries de seleção', () => {
   let sequelize;
 
   beforeAll(async () => {
@@ -145,6 +145,18 @@ describe('Desafios obrigatórios', () => {
       expect(songsCount).toEqual([{ 'COUNT(*)': 18 }]);
 
       expect(await hasForeignKey(songTable, albumTable)).toBeTruthy();
+    });
+  });
+
+  describe('Exibe as estatísticas musicais', () => {
+    it('Verifica o desafio 2', async () => {
+      const challengeQuery = readFileSync('desafio2.sql', 'utf8');
+
+      await sequelize.query(challengeQuery, { type: 'RAW' });
+
+      const result = await sequelize.query('SELECT * FROM estatisticas_musicais;', { type: 'SELECT' });
+
+      expect(result).toEqual([{ cancoes: 18, artistas: 4, albuns: 5 }]);
     });
   });
 });
