@@ -220,4 +220,24 @@ describe('Queries de seleção', () => {
       expect(result).toEqual(expectedResult);
     });
   });
+
+  describe('Exibe o relatório de faturamento da empresa', () => {
+    it('Verifica o desafio 6', async () => {
+      const challengeQuery = readFileSync('desafio6.sql', 'utf8');
+
+      await sequelize.query(challengeQuery, { type: 'RAW' });
+
+      const result = await sequelize.query('SELECT * FROM faturamento_atual;', { type: 'SELECT' });
+      const expectedResult = [
+        {
+          faturamento_maximo: '7.99',
+          faturamento_medio: '3.50',
+          faturamento_minimo: '0.00',
+          faturamento_total: '13.98',
+        },
+      ];
+
+      expect(result).toEqual(expectedResult);
+    });
+  });
 });
