@@ -304,6 +304,27 @@ describe('Queries de seleção', () => {
       expect(result).toEqual([{ quantidade_musicas_no_historico: 3 }]);
     });
   })
+
+  describe('Crie uma `VIEW` chamada `cancoes_premium` que exiba o nome e a quantidade de vezes que cada canção foi tocada por pessoas usuárias do plano familiar ou universitário', () => {
+    it('Verifica o desafio 11', async () => {
+      const createViewQuery = readFileSync('desafio11.sql', 'utf8').trim();
+
+      await sequelize.query(createViewQuery);
+
+      const result = await sequelize.query('SELECT * FROM cancoes_premium;', { type: 'SELECT' });
+      const expectedResult = [
+        { nome: 'Home Forever', reproducoes: 1 },
+        { nome: 'Honey, Let\'s Be Silly', reproducoes: 1 },
+        { nome: 'Magic Circus', reproducoes: 1 },
+        { nome: 'Reflections Of Magic', reproducoes: 1 },
+        { nome: 'Thang Of Thunder', reproducoes: 1 },
+        { nome: 'Troubles Of My Inner Fire', reproducoes: 1 },
+        { nome: 'Words Of Her Life', reproducoes: 1 },
+      ];
+
+      expect(result).toEqual(expectedResult);
+    });
+  });
 });
 
 describe('Queries de deleção', () => {
