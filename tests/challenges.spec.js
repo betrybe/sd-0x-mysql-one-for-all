@@ -240,4 +240,23 @@ describe('Queries de seleção', () => {
       expect(result).toEqual(expectedResult);
     });
   });
+
+  describe('Exibe uma relação de todos os álbuns produzidos por cada artista', () => {
+    it('Verifica o desafio 7', async () => {
+      const challengeQuery = readFileSync('desafio7.sql', 'utf8');
+
+      await sequelize.query(challengeQuery, { type: 'RAW' });
+
+      const result = await sequelize.query('SELECT * FROM perfil_artistas;', { type: 'SELECT' });
+      const expectedResult = [
+        { album: 'Envious', artista: 'Walter Phoenix', seguidores: 3 },
+        { album: 'Exuberant', artista: 'Walter Phoenix', seguidores: 3 },
+        { album: 'Temporary Culture', artista: 'Freedie Shannon', seguidores: 2 },
+        { album: 'Incandescent', artista: 'Lance Day', seguidores: 2 },
+        { album: 'Hallowed Steam', artista: 'Peter Strong', seguidores: 1 },
+      ];
+
+      expect(result).toEqual(expectedResult);
+    });
+  });
 });
