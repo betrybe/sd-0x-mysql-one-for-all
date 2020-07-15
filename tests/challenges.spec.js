@@ -7,7 +7,7 @@ describe('Queries de seleção', () => {
 
   beforeAll(async () => {
     const importer = new Importer(
-      { user: process.env.MYSQL_USER, password: process.env.MYSQL_PASSWORD, host: process.env.HOSTNAME }
+      { user: process.env.MYSQL_USER, password: process.env.MYSQL_PASSWORD, host: process.env.HOSTNAME },
     );
 
     await importer.import('./desafio1.sql');
@@ -15,7 +15,7 @@ describe('Queries de seleção', () => {
     importer.disconnect();
 
     sequelize = new Sequelize(
-      `mysql://${process.env.MYSQL_USER}:${process.env.MYSQL_PASSWORD}@${process.env.HOSTNAME}:3306/SpotifyClone`
+      `mysql://${process.env.MYSQL_USER}:${process.env.MYSQL_PASSWORD}@${process.env.HOSTNAME}:3306/SpotifyClone`,
     );
   });
 
@@ -37,7 +37,7 @@ describe('Queries de seleção', () => {
                 FROM information_schema.KEY_COLUMN_USAGE
                 WHERE TABLE_NAME = '${referencedTable}' AND CONSTRAINT_NAME = 'PRIMARY'
             );`,
-        { type: 'SELECT' }
+        { type: 'SELECT' },
       );
 
       return (referenceCount === 1);
@@ -48,11 +48,11 @@ describe('Queries de seleção', () => {
         `SELECT COUNT(COLUMN_NAME) AS PK_COUNT
         FROM information_schema.KEY_COLUMN_USAGE
         WHERE TABLE_NAME = '${table}' AND CONSTRAINT_NAME = 'PRIMARY';`,
-        { type: 'SELECT' }
+        { type: 'SELECT' },
       );
 
       return (pkCount > 1);
-    }
+    };
 
     it('Verifica os planos', async () => {
       const {
@@ -63,7 +63,8 @@ describe('Queries de seleção', () => {
       expect(planTable).not.toBe(userTable);
 
       const plansCount = await sequelize.query(
-        `SELECT COUNT(*) FROM ${planTable};`, { type: 'SELECT' }
+        `SELECT COUNT(*) FROM ${planTable};`,
+        { type: 'SELECT' },
       );
 
       expect(plansCount).toEqual([{ 'COUNT(*)': 3 }]);
@@ -82,7 +83,8 @@ describe('Queries de seleção', () => {
       expect(reproductionHistoryTable).not.toBe(songTable);
 
       const reproductionHistoryCount = await sequelize.query(
-        `SELECT COUNT(*) FROM ${reproductionHistoryTable};`, { type: 'SELECT' }
+        `SELECT COUNT(*) FROM ${reproductionHistoryTable};`,
+        { type: 'SELECT' },
       );
 
       expect(reproductionHistoryCount).toEqual([{ 'COUNT(*)': 14 }]);
@@ -103,7 +105,8 @@ describe('Queries de seleção', () => {
       expect(followingTable).not.toBe(artistTable);
 
       const reproductionHistoryCount = await sequelize.query(
-        `SELECT COUNT(*) FROM ${followingTable};`, { type: 'SELECT' }
+        `SELECT COUNT(*) FROM ${followingTable};`,
+        { type: 'SELECT' },
       );
 
       expect(reproductionHistoryCount).toEqual([{ 'COUNT(*)': 8 }]);
@@ -122,7 +125,8 @@ describe('Queries de seleção', () => {
       expect(albumTable).not.toBe(artistTable);
 
       const plansCount = await sequelize.query(
-        `SELECT COUNT(*) FROM ${albumTable};`, { type: 'SELECT' }
+        `SELECT COUNT(*) FROM ${albumTable};`,
+        { type: 'SELECT' },
       );
 
       expect(plansCount).toEqual([{ 'COUNT(*)': 5 }]);
@@ -139,7 +143,8 @@ describe('Queries de seleção', () => {
       expect(songTable).not.toBe(albumTable);
 
       const songsCount = await sequelize.query(
-        `SELECT COUNT(*) FROM ${songTable};`, { type: 'SELECT' }
+        `SELECT COUNT(*) FROM ${songTable};`,
+        { type: 'SELECT' },
       );
 
       expect(songsCount).toEqual([{ 'COUNT(*)': 18 }]);
@@ -275,7 +280,7 @@ describe('Queries de seleção', () => {
 
       expect(result).toEqual(expectedResult);
     });
-  })
+  });
 
   describe('Crie uma function chamada de `quantidade_musicas_no_historico` que exibe a quantidade de músicas que estão presente atualmente no histórico de reprodução de uma pessoa usuária', () => {
     it('Verifica o desafio 10', async () => {
@@ -292,18 +297,19 @@ describe('Queries de seleção', () => {
       `, { type: 'SELECT' });
       const userId = (await sequelize.query(
         `SELECT ${userIdColumn} FROM ${userTable} WHERE ${userColumn} = 'Bill';`,
-        { type: 'SELECT' }
+        { type: 'SELECT' },
       ))[0][userIdColumn];
 
       await sequelize.query(createFunctionQuery);
 
       const result = await sequelize.query(
         `SELECT quantidade_musicas_no_historico(${userId}) AS quantidade_musicas_no_historico;`,
-        { type: 'SELECT' });
+        { type: 'SELECT' },
+      );
 
       expect(result).toEqual([{ quantidade_musicas_no_historico: 3 }]);
     });
-  })
+  });
 
   describe('Crie uma `VIEW` chamada `cancoes_premium` que exiba o nome e a quantidade de vezes que cada canção foi tocada por pessoas usuárias do plano familiar ou universitário', () => {
     it('Verifica o desafio 11', async () => {
@@ -333,11 +339,11 @@ describe('Queries de deleção', () => {
 
   beforeAll(() => {
     importer = new Importer(
-      { user: process.env.MYSQL_USER, password: process.env.MYSQL_PASSWORD, host: process.env.HOSTNAME }
+      { user: process.env.MYSQL_USER, password: process.env.MYSQL_PASSWORD, host: process.env.HOSTNAME },
     );
 
     sequelize = new Sequelize(
-      `mysql://${process.env.MYSQL_USER}:${process.env.MYSQL_PASSWORD}@${process.env.HOSTNAME}:3306/`
+      `mysql://${process.env.MYSQL_USER}:${process.env.MYSQL_PASSWORD}@${process.env.HOSTNAME}:3306/`,
     );
   });
 
@@ -371,7 +377,7 @@ describe('Queries de deleção', () => {
       `, { type: 'SELECT' });
       const userId = (await sequelize.query(
         `SELECT ${userIdColumn} FROM ${userTable} WHERE ${userColumn} = 'Thati';`,
-        { type: 'SELECT' }
+        { type: 'SELECT' },
       ))[0][userIdColumn];
 
       await sequelize.query(`DELETE FROM ${userTable} WHERE ${userColumn} = 'Thati';`);
@@ -382,11 +388,11 @@ describe('Queries de deleção', () => {
         WHERE REFERENCED_TABLE_NAME = '${userTable}';
       `, { type: 'SELECT' });
 
-      for(let i = 0; i < userReferencedTables.length; i += 1) {
+      for (let i = 0; i < userReferencedTables.length; i += 1) {
         const { TABLE_NAME: tableName, COLUMN_NAME: columnName } = userReferencedTables[i];
         const userCount = await sequelize.query(
           `SELECT COUNT(*) AS user_count FROM ${tableName} WHERE ${columnName} = ${userId};`,
-          { type: 'SELECT' }
+          { type: 'SELECT' },
         );
 
         expect(userCount).toEqual([{ user_count: 0 }]);
