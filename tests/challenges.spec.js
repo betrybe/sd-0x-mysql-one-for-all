@@ -260,3 +260,71 @@ describe('Queries de seleção', () => {
     });
   });
 });
+
+describe('Queries de deleção', () => {
+  let importer;
+  let sequelize;
+
+  beforeAll(() => {
+    importer = new Importer(
+      { user: process.env.MYSQL_USER, password: process.env.MYSQL_PASSWORD, host: process.env.HOSTNAME }
+    );
+
+    sequelize = new Sequelize(
+      `mysql://${process.env.MYSQL_USER}:${process.env.MYSQL_PASSWORD}@${process.env.HOSTNAME}:3306/`
+    );
+  });
+
+  afterAll(() => {
+    importer.disconnect();
+    sequelize.close();
+  });
+
+  beforeEach(async () => {
+    await importer.import('./desafio1.sql');
+    await sequelize.query('USE SpotifyClone;', { type: 'RAW' });
+  });
+
+  afterEach(async () => await sequelize.query('DROP DATABASE SpotifyClone;', { type: 'RAW' }));
+
+  describe('Crie uma trigger chamada `trigger_usuario_delete` que deve ser disparada sempre que uma pessoa usuária for excluída do banco de dados, refletindo essa exclusão em todas as tabelas que ela estiver', () => {
+    it('Verifica o desafio 8', async () => {
+      const {
+        tabela_que_contem_usuario: userTable,
+        coluna_usuario: userColumn,
+      } = JSON.parse(readFileSync('desafio1.json', 'utf8'));
+      const challengeQuery = readFileSync('desafio8.sql', 'utf8').trim();
+      const createTriggerQuery = /CREATE TRIGGER.*END/si.exec(challengeQuery)[0];
+
+      await sequelize.query(createTriggerQuery);
+
+      const [{ COLUMN_NAME: userIdColumn }] = await sequelize.query(`
+        SELECT COLUMN_NAME
+        FROM information_schema.KEY_COLUMN_USAGE
+        WHERE TABLE_NAME = '${userTable}' AND CONSTRAINT_NAME = 'PRIMARY';
+      `, { type: 'SELECT' });
+      const userId = (await sequelize.query(
+        `SELECT ${userIdColumn} FROM ${userTable} WHERE ${userColumn} = 'Thati';`,
+        { type: 'SELECT' }
+      ))[0][userIdColumn];
+
+      await sequelize.query(`DELETE FROM ${userTable} WHERE ${userColumn} = 'Thati';`);
+
+      const userReferencedTables = await sequelize.query(`
+        SELECT TABLE_NAME, COLUMN_NAME
+        FROM information_schema.KEY_COLUMN_USAGE
+        WHERE REFERENCED_TABLE_NAME = '${userTable}';
+      `, { type: 'SELECT' });
+
+      for(let i = 0; i < userReferencedTables.length; i += 1) {
+        const { TABLE_NAME: tableName, COLUMN_NAME: columnName } = userReferencedTables[i];
+        const userCount = await sequelize.query(
+          `SELECT COUNT(*) AS user_count FROM ${tableName} WHERE ${columnName} = ${userId};`,
+          { type: 'SELECT' }
+        );
+
+        expect(userCount).toEqual([{ user_count: 0 }]);
+      }
+    });
+  });
+});
