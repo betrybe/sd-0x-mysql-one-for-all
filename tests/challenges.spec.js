@@ -187,4 +187,21 @@ describe('Queries de seleção', () => {
       expect(result).toEqual(expectedResult);
     });
   });
+
+  describe('Exibe top 3 artistas com maior quantidade de pessoas seguidoras ', () => {
+    it('Verifica o desafio 4', async () => {
+      const challengeQuery = readFileSync('desafio4.sql', 'utf8');
+
+      await sequelize.query(challengeQuery, { type: 'RAW' });
+
+      const result = await sequelize.query('SELECT * FROM top_3_artistas;', { type: 'SELECT' });
+      const expectedResult = [
+        { artista: 'Walter Phoenix', seguidores: 3 },
+        { artista: 'Freedie Shannon', seguidores: 2 },
+        { artista: 'Lance Day', seguidores: 2 },
+      ];
+
+      expect(result).toEqual(expectedResult);
+    });
+  });
 });
