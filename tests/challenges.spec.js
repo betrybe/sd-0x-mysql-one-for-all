@@ -159,4 +159,32 @@ describe('Queries de seleção', () => {
       expect(result).toEqual([{ cancoes: 18, artistas: 4, albuns: 5 }]);
     });
   });
+
+  describe('Exibe o histórico de reprodução para cada pessoa usuária', () => {
+    it('Verifica o desafio 3', async () => {
+      const challengeQuery = readFileSync('desafio3.sql', 'utf8');
+
+      await sequelize.query(challengeQuery, { type: 'RAW' });
+
+      const result = await sequelize.query('SELECT * FROM historico_reproducao_usuarios;', { type: 'SELECT' });
+      const expectedResult = [
+        { nome: 'Magic Circus', usuario: 'Bill' },
+        { nome: 'Thang Of Thunder', usuario: 'Bill' },
+        { nome: 'Troubles Of My Inner Fire', usuario: 'Bill' },
+        { nome: 'Home Forever', usuario: 'Cintia' },
+        { nome: 'Honey, Let\'s Be Silly', usuario: 'Cintia' },
+        { nome: 'Reflections Of Magic', usuario: 'Cintia' },
+        { nome: 'Words Of Her Life', usuario: 'Cintia' },
+        { nome: 'Celebration Of More', usuario: 'Roger' },
+        { nome: 'Dance With Her Own', usuario: 'Roger' },
+        { nome: 'Without My Streets', usuario: 'Roger' },
+        { nome: 'Diamond Power', usuario: 'Thati' },
+        { nome: 'Magic Circus', usuario: 'Thati' },
+        { nome: 'Soul For Us', usuario: 'Thati' },
+        { nome: 'Thang Of Thunder', usuario: 'Thati' },
+      ];
+
+      expect(result).toEqual(expectedResult);
+    });
+  });
 });
