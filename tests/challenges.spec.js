@@ -276,6 +276,34 @@ describe('Queries de seleção', () => {
       expect(result).toEqual(expectedResult);
     });
   })
+
+  describe('Crie uma function chamada de `quantidade_musicas_no_historico` que exibe a quantidade de músicas que estão presente atualmente no histórico de reprodução de uma pessoa usuária', () => {
+    it('Verifica o desafio 10', async () => {
+      const {
+        tabela_que_contem_usuario: userTable,
+        coluna_usuario: userColumn,
+      } = JSON.parse(readFileSync('desafio1.json', 'utf8'));
+      const challengeQuery = readFileSync('desafio10.sql', 'utf8').trim();
+      const createFunctionQuery = /CREATE FUNCTION.*END/si.exec(challengeQuery)[0];
+      const [{ COLUMN_NAME: userIdColumn }] = await sequelize.query(`
+        SELECT COLUMN_NAME
+        FROM information_schema.KEY_COLUMN_USAGE
+        WHERE TABLE_NAME = '${userTable}' AND CONSTRAINT_NAME = 'PRIMARY';
+      `, { type: 'SELECT' });
+      const userId = (await sequelize.query(
+        `SELECT ${userIdColumn} FROM ${userTable} WHERE ${userColumn} = 'Bill';`,
+        { type: 'SELECT' }
+      ))[0][userIdColumn];
+
+      await sequelize.query(createFunctionQuery);
+
+      const result = await sequelize.query(
+        `SELECT quantidade_musicas_no_historico(${userId}) AS quantidade_musicas_no_historico;`,
+        { type: 'SELECT' });
+
+      expect(result).toEqual([{ quantidade_musicas_no_historico: 3 }]);
+    });
+  })
 });
 
 describe('Queries de deleção', () => {
