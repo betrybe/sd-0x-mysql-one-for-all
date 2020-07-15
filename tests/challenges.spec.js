@@ -259,6 +259,23 @@ describe('Queries de seleção', () => {
       expect(result).toEqual(expectedResult);
     });
   });
+
+  describe('Crie uma procedure chamada `albuns_do_artista` que, dado o nome da pessoa artista, retorna todos seus álbuns', () => {
+    it('Verifica o desafio 9', async () => {
+      const challengeQuery = readFileSync('desafio9.sql', 'utf8').trim();
+      const createProcedureQuery = /CREATE PROCEDURE.*END/si.exec(challengeQuery)[0];
+
+      await sequelize.query(createProcedureQuery);
+
+      const result = await sequelize.query('CALL albuns_do_artista(\'Walter Phoenix\');');
+      const expectedResult = [
+        { album: 'Envious', artista: 'Walter Phoenix' },
+        { album: 'Exuberant', artista: 'Walter Phoenix' },
+      ];
+
+      expect(result).toEqual(expectedResult);
+    });
+  })
 });
 
 describe('Queries de deleção', () => {
