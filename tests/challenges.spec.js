@@ -204,4 +204,20 @@ describe('Queries de seleção', () => {
       expect(result).toEqual(expectedResult);
     });
   });
+
+  describe('Exibe top 2 hits mais tocados no momento', () => {
+    it('Verifica o desafio 5', async () => {
+      const challengeQuery = readFileSync('desafio5.sql', 'utf8');
+
+      await sequelize.query(challengeQuery, { type: 'RAW' });
+
+      const result = await sequelize.query('SELECT * FROM top_2_hits_do_momento;', { type: 'SELECT' });
+      const expectedResult = [
+        { cancao: 'Magic Circus', reproducoes: 2 },
+        { cancao: 'Thang Of Thunder', reproducoes: 2 },
+      ];
+
+      expect(result).toEqual(expectedResult);
+    });
+  });
 });
