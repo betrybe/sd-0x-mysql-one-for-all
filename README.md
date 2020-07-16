@@ -15,19 +15,22 @@ Aqui você vai encontrar os detalhes de como estruturar o desenvolvimento do seu
   * Entre na pasta do repositório que você acabou de clonar:
     * `cd sd-0x-mysql-one-for-all`
 
-2. Crie uma branch a partir da branch `master`
+2. Instale as dependências
+  * `npm install`
+
+3. Crie uma branch a partir da branch `master`
   * Verifique que você está na branch `master`
     * Exemplo: `git branch`
   * Se não estiver, mude para a branch `master`
     * Exemplo: `git checkout master`
   * Agora, crie uma branch onde você vai guardar os `commits` do seu projeto
     * Você deve criar uma branch no seguinte formato: `nome-de-usuario-nome-do-projeto`
-    * Exemplo: `git checkout -b seunome-one-for-all`
+    * Exemplo: `git checkout -b seunome-mysql-one-for-all`
 
-3. Para cada exercício, você deve criar um novo arquivo SQL seguindo a seguinte estrutura:
+4. Para cada exercício você deve criar um novo arquivo sql seguindo a seguinte estrutura:
   * desafio1.sql, desafio2.sql, desafio3.sql, desafio4.sql, ..., desafioN.sql
 
-4. Adicione as mudanças ao _stage_ do Git e faça um `commit`
+5. Adicione as mudanças ao _stage_ do Git e faça um `commit`
   * Verifique que as mudanças ainda não estão no _stage_
     * Exemplo: `git status` (deve aparecer o arquivo que você alterou como desafio1.sql)
   * Adicione o novo arquivo ao _stage_ do Git
@@ -36,11 +39,11 @@ Aqui você vai encontrar os detalhes de como estruturar o desenvolvimento do seu
         * `git status` (deve aparecer listado o arquivo _desafio1.sql_ em verde)
   * Faça o `commit` inicial
       * Exemplo:
-        * `git commit -m 'Iniciando o projeto One for All'` (fazendo o primeiro commit)
+        * `git commit -m 'iniciando o projeto MySQL One For All'` (fazendo o primeiro commit)
         * `git status` (deve aparecer uma mensagem tipo _nothing to commit_ )
 
 6. Adicione a sua branch com o novo `commit` ao repositório remoto
-  * Usando o exemplo anterior: `git push -u origin seunome-one-for-all`
+  * Usando o exemplo anterior: `git push -u origin seunome-mysql-one-for-all`
 
 7. Crie um novo `Pull Request` _(PR)_
   * Vá até a página de _Pull Requests_ do [repositório no GitHub](https://github.com/tryber/sd-0x-mysql-one-for-all/pulls)
