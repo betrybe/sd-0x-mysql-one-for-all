@@ -61,6 +61,7 @@ describe('Queries de seleção', () => {
 
     it('Verifica os planos', async () => {
       const {
+        coluna_plano: planColumn,
         tabela_que_contem_plano: planTable,
         tabela_que_contem_usuario: userTable,
       } = JSON.parse(readFileSync('desafio1.json', 'utf8'));
@@ -68,17 +69,18 @@ describe('Queries de seleção', () => {
       expect(planTable).not.toBe(userTable);
 
       const plansCount = await sequelize.query(
-        `SELECT COUNT(*) FROM ${planTable};`,
+        `SELECT COUNT(${planColumn}) AS quantidade_planos FROM ${planTable};`,
         { type: 'SELECT' },
       );
 
-      expect(plansCount).toEqual([{ 'COUNT(*)': 3 }]);
+      expect(plansCount).toEqual([{ quantidade_planos: 3 }]);
 
       expect(await hasForeignKey(userTable, planTable)).toBeTruthy();
     });
 
     it('Verifica o histórico de reprodução', async () => {
       const {
+        coluna_historico_de_reproducoes: reproductionHistoryColumn,
         tabela_que_contem_historico_de_reproducoes: reproductionHistoryTable,
         tabela_que_contem_usuario: userTable,
         tabela_que_contem_cancoes: songTable,
@@ -88,11 +90,11 @@ describe('Queries de seleção', () => {
       expect(reproductionHistoryTable).not.toBe(songTable);
 
       const reproductionHistoryCount = await sequelize.query(
-        `SELECT COUNT(*) FROM ${reproductionHistoryTable};`,
+        `SELECT COUNT(${reproductionHistoryColumn}) AS musicas_escutadas FROM ${reproductionHistoryTable};`,
         { type: 'SELECT' },
       );
 
-      expect(reproductionHistoryCount).toEqual([{ 'COUNT(*)': 14 }]);
+      expect(reproductionHistoryCount).toEqual([{ musicas_escutadas: 14 }]);
 
       expect(await hasForeignKey(reproductionHistoryTable, songTable)).toBeTruthy();
       expect(await hasForeignKey(reproductionHistoryTable, userTable)).toBeTruthy();
@@ -101,6 +103,7 @@ describe('Queries de seleção', () => {
 
     it('Verifica pessoas seguindo artistas', async () => {
       const {
+        coluna_seguindo_artistas: followedArtistColumn,
         tabela_que_contem_seguindo_artistas: followingTable,
         tabela_que_contem_usuario: userTable,
         tabela_que_contem_artista: artistTable,
@@ -109,12 +112,12 @@ describe('Queries de seleção', () => {
       expect(followingTable).not.toBe(userTable);
       expect(followingTable).not.toBe(artistTable);
 
-      const reproductionHistoryCount = await sequelize.query(
-        `SELECT COUNT(*) FROM ${followingTable};`,
+      const followedArtistsCount = await sequelize.query(
+        `SELECT COUNT(${followedArtistColumn}) AS artistas_seguidos FROM ${followingTable};`,
         { type: 'SELECT' },
       );
 
-      expect(reproductionHistoryCount).toEqual([{ 'COUNT(*)': 8 }]);
+      expect(followedArtistsCount).toEqual([{ artistas_seguidos: 8 }]);
 
       expect(await hasForeignKey(followingTable, artistTable)).toBeTruthy();
       expect(await hasForeignKey(followingTable, userTable)).toBeTruthy();
@@ -123,24 +126,26 @@ describe('Queries de seleção', () => {
 
     it('Verifica os álbuns', async () => {
       const {
+        coluna_album: albumColumn,
         tabela_que_contem_album: albumTable,
         tabela_que_contem_artista: artistTable,
       } = JSON.parse(readFileSync('desafio1.json', 'utf8'));
 
       expect(albumTable).not.toBe(artistTable);
 
-      const plansCount = await sequelize.query(
-        `SELECT COUNT(*) FROM ${albumTable};`,
+      const albumsCount = await sequelize.query(
+        `SELECT COUNT(${albumColumn}) AS quantidade_albuns FROM ${albumTable};`,
         { type: 'SELECT' },
       );
 
-      expect(plansCount).toEqual([{ 'COUNT(*)': 5 }]);
+      expect(albumsCount).toEqual([{ quantidade_albuns: 5 }]);
 
       expect(await hasForeignKey(albumTable, artistTable)).toBeTruthy();
     });
 
     it('Verifica as canções', async () => {
       const {
+        coluna_cancoes: songColumn,
         tabela_que_contem_cancoes: songTable,
         tabela_que_contem_album: albumTable,
       } = JSON.parse(readFileSync('desafio1.json', 'utf8'));
@@ -148,13 +153,41 @@ describe('Queries de seleção', () => {
       expect(songTable).not.toBe(albumTable);
 
       const songsCount = await sequelize.query(
-        `SELECT COUNT(*) FROM ${songTable};`,
+        `SELECT COUNT(${songColumn}) AS quantidade_cancoes FROM ${songTable};`,
         { type: 'SELECT' },
       );
 
-      expect(songsCount).toEqual([{ 'COUNT(*)': 18 }]);
+      expect(songsCount).toEqual([{ quantidade_cancoes: 18 }]);
 
       expect(await hasForeignKey(songTable, albumTable)).toBeTruthy();
+    });
+
+    it('Verifica as pessoas usuárias', async () => {
+      const {
+        coluna_usuario: userColumn,
+        tabela_que_contem_usuario: userTable,
+      } = JSON.parse(readFileSync('desafio1.json', 'utf8'));
+
+      const usersCount = await sequelize.query(
+        `SELECT COUNT(${userColumn}) AS quantidade_usuarios FROM ${userTable};`,
+        { type: 'SELECT' },
+      );
+
+      expect(usersCount).toEqual([{ quantidade_usuarios: 4 }]);
+    });
+
+    it('Verifica as pessoas artistas', async () => {
+      const {
+        coluna_artista: artistColumn,
+        tabela_que_contem_artista: artistTable,
+      } = JSON.parse(readFileSync('desafio1.json', 'utf8'));
+
+      const artistsCount = await sequelize.query(
+        `SELECT COUNT(${artistColumn}) AS quantidade_artistas FROM ${artistTable};`,
+        { type: 'SELECT' },
+      );
+
+      expect(artistsCount).toEqual([{ quantidade_artistas: 4 }]);
     });
   });
 

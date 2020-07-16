@@ -87,7 +87,7 @@ Algumas coisas devem seguir um padrão pré-estabelecido para que os teste de co
 
   * Quando for preciso que uma `coluna_a` referencie uma coluna `coluna_b` em outra tabela, é **necessário** que na `coluna_a` haja restrição de foreign key e que `coluna_b` seja uma primary key;
 
-  * Quando for necessário criar tabela de join, a chave primária dessa tabela **precisa** ser composta por suas foreign keys.
+  * Quando for necessário fazer uso do relacionamento muitos para muitos (`N..N`), a tabela criada para modelar esse tipo de relacionamento **precisa** ter sua chave primária composta por suas foreign keys.
 
 2. **Todos** os desafios que pedirem para criar uma view **devem** possuir no seu arquivo `.sql` correspondente **somente** a query para a criação da view.
 
