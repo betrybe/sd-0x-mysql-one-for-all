@@ -10,7 +10,12 @@ describe('Queries de seleção', () => {
       { user: process.env.MYSQL_USER, password: process.env.MYSQL_PASSWORD, host: process.env.HOSTNAME },
     );
 
-    await importer.import('./desafio1.sql');
+    try {
+      await importer.import('./desafio1.sql');
+    }
+    catch(error) {
+      console.log('Erro ao restaurar o dump!');
+    }
 
     importer.disconnect();
 
@@ -193,7 +198,7 @@ describe('Queries de seleção', () => {
     });
   });
 
-  describe('Exibe top 3 artistas com maior quantidade de pessoas seguidoras ', () => {
+  describe('Exibe top 3 artistas com maior quantidade de pessoas seguidoras', () => {
     it('Verifica o desafio 4', async () => {
       const challengeQuery = readFileSync('desafio4.sql', 'utf8');
 
@@ -353,7 +358,13 @@ describe('Queries de deleção', () => {
   });
 
   beforeEach(async () => {
-    await importer.import('./desafio1.sql');
+    try {
+      await importer.import('./desafio1.sql');
+    }
+    catch(error) {
+      console.log('Erro ao restaurar o dump!');
+    }
+
     await sequelize.query('USE SpotifyClone;', { type: 'RAW' });
   });
 
