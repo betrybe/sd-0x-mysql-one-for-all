@@ -228,13 +228,15 @@ CREATE TABLE tabela2(
 ) engine = InnoDB;
 
 INSERT INTO tabela1 (coluna1, coluna2)
-       VALUES ('exemplo de dados 1', 'exemplo de dados A'),
-              ('exemplo de dados 2', 'exemplo de dados B'),
-              ('exemplo de dados 3', 'exemplo de dados C');
+VALUES
+  ('exemplo de dados 1', 'exemplo de dados A'),
+  ('exemplo de dados 2', 'exemplo de dados B'),
+  ('exemplo de dados 3', 'exemplo de dados C');
 
 INSERT INTO tabela2 (coluna1, coluna2)
-       VALUES ('exemplo de dados 1', 'exemplo de dados X'),
-              ('exemplo de dados 2', 'exemplo de dados Y');
+VALUES
+  ('exemplo de dados 1', 'exemplo de dados X'),
+  ('exemplo de dados 2', 'exemplo de dados Y');
 ```
 
 ⚠️ Note que uma vez executado um teste, a sua base de dados `SpotifyClone` **será dropada**. Logo, **se atente** a salvar seu progresso nos arquivos de desafio! ⚠️
