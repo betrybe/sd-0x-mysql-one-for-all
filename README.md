@@ -60,7 +60,7 @@ Aqui você vai encontrar os detalhes de como estruturar o desenvolvimento do seu
 
 A seguir, tem-se a apresentação de um problema que deve ser resolvido através da normalização e criação de queries. Cada passo solicita um tipo de resposta diferente. Para cada desafio, crie um arquivo SQL e inclua sua solução nele.
 
-1. Leia a pergunta e crie um arquivo chamado `desafioN.sql`, em que N é o número do desafio (exemplo: desafio3.sql).
+1. Leia a pergunta e crie um arquivo chamado `desafioN.sql`, em que N é o número do desafio (exemplo: desafio3.sql). Para o [primeiro desafio](#desafio-1), é preciso criar também o arquivo de configurações `desafio1.json`.
 
 2. O arquivo deve conter apenas o código SQL do desafio resolvido. **Não se esqueça de incluir o ponto e vírgula (";")** no final de suas queries e também de **colocar o nome do banco_de_dados.tabela por completo**, como no exemplo a seguir:
 ```sql
@@ -71,7 +71,7 @@ SELECT * FROM SpotifyClone.artista;
 
 4. Faça isso até finalizar todos os desafios e depois siga as instruções de como entregar o projeto em [**Instruções para entregar seu projeto**](#instruções-para-entregar-seu-projeto)
 
-5. Para entregar o seu projeto você deverá criar um _Pull Request_ neste repositório. Este _Pull Request_ deverá conter os arquivos `desafio1.sql`, `desafio2.sql` e assim por diante até o `desafio11.sql`, que conterão seu código `SQL` de cada desafio, respectivamente.
+5. Para entregar o seu projeto você deverá criar um _Pull Request_ neste repositório. Este _Pull Request_ deverá conter tanto o arquivo de configurações `desafio1.json` do [primeiro desafio](#desafio-1) quanto os arquivos `desafio1.sql`, `desafio2.sql` e assim por diante até o `desafio11.sql`, que conterão seu código `SQL` de cada desafio, respectivamente.
 
 ## ⚠️ É importante que seus arquivos tenham exatamente estes nomes! ⚠️
 
