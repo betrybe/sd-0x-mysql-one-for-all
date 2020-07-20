@@ -35,3 +35,8 @@ plugins:
     enabled: true
   fixme:
     enabled: true
+exclude_patterns:
+  - "SpotifyClone-Non-NormalizedTable.xlsx"
+  - "images/"
+  - "tests/"
+  - "node_modules/"
