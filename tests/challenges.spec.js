@@ -35,12 +35,13 @@ describe('Queries de seleção', () => {
         `SELECT COUNT(COLUMN_NAME) AS REFERENCE_COUNT
         FROM information_schema.KEY_COLUMN_USAGE
         WHERE
-          TABLE_NAME = '${table}'
+          TABLE_SCHEMA = 'SpotifyClone'
+            AND TABLE_NAME = '${table}'
             AND REFERENCED_TABLE_NAME = '${referencedTable}'
             AND REFERENCED_COLUMN_NAME = (
             SELECT COLUMN_NAME
                 FROM information_schema.KEY_COLUMN_USAGE
-                WHERE TABLE_NAME = '${referencedTable}' AND CONSTRAINT_NAME = 'PRIMARY'
+                WHERE TABLE_SCHEMA = 'SpotifyClone' AND TABLE_NAME = '${referencedTable}' AND CONSTRAINT_NAME = 'PRIMARY'
             );`,
         { type: 'SELECT' },
       );
@@ -52,7 +53,7 @@ describe('Queries de seleção', () => {
       const [{ PK_COUNT: pkCount }] = await sequelize.query(
         `SELECT COUNT(COLUMN_NAME) AS PK_COUNT
         FROM information_schema.KEY_COLUMN_USAGE
-        WHERE TABLE_NAME = '${table}' AND CONSTRAINT_NAME = 'PRIMARY';`,
+        WHERE TABLE_SCHEMA = 'SpotifyClone' AND TABLE_NAME = '${table}' AND CONSTRAINT_NAME = 'PRIMARY';`,
         { type: 'SELECT' },
       );
 
@@ -331,7 +332,7 @@ describe('Queries de seleção', () => {
       const [{ COLUMN_NAME: userIdColumn }] = await sequelize.query(`
         SELECT COLUMN_NAME
         FROM information_schema.KEY_COLUMN_USAGE
-        WHERE TABLE_NAME = '${userTable}' AND CONSTRAINT_NAME = 'PRIMARY';
+        WHERE TABLE_SCHEMA = 'SpotifyClone' AND TABLE_NAME = '${userTable}' AND CONSTRAINT_NAME = 'PRIMARY';
       `, { type: 'SELECT' });
       const userId = (await sequelize.query(
         `SELECT ${userIdColumn} FROM ${userTable} WHERE ${userColumn} = 'Bill';`,
@@ -417,7 +418,7 @@ describe('Queries de deleção', () => {
       const [{ COLUMN_NAME: userIdColumn }] = await sequelize.query(`
         SELECT COLUMN_NAME
         FROM information_schema.KEY_COLUMN_USAGE
-        WHERE TABLE_NAME = '${userTable}' AND CONSTRAINT_NAME = 'PRIMARY';
+        WHERE TABLE_SCHEMA = 'SpotifyClone' AND TABLE_NAME = '${userTable}' AND CONSTRAINT_NAME = 'PRIMARY';
       `, { type: 'SELECT' });
       const userId = (await sequelize.query(
         `SELECT ${userIdColumn} FROM ${userTable} WHERE ${userColumn} = 'Thati';`,
@@ -429,7 +430,7 @@ describe('Queries de deleção', () => {
       const userReferencedTables = await sequelize.query(`
         SELECT TABLE_NAME, COLUMN_NAME
         FROM information_schema.KEY_COLUMN_USAGE
-        WHERE REFERENCED_TABLE_NAME = '${userTable}';
+        WHERE TABLE_SCHEMA = 'SpotifyClone' AND REFERENCED_TABLE_NAME = '${userTable}';
       `, { type: 'SELECT' });
 
       for (let i = 0; i < userReferencedTables.length; i += 1) {
