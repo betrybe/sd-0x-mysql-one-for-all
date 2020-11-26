@@ -16,7 +16,7 @@ Aqui você vai encontrar os detalhes de como estruturar o desenvolvimento do seu
 
 - [Habilidades](#habilidades)
 - [Entregáveis](#entregáveis)
-  - [O que deverá ser desenvolvido](#o-que-deverá-ser-desenvolvido)
+  - [O que deverá ser resolvido](#o-que-deverá-ser-desenvolvido)
   - [Desenvolvimento](#desenvolvimento)
   - [Problema a ser desenvolvido](#problema-a-ser-resolvido)
   - [Data de entrega](#data-de-entrega)
