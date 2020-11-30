@@ -120,7 +120,7 @@ Seu banco de dados deve seguir as regras de negócio e ser capaz de recuperar:
 * Informações sobre quais planos estão disponíveis e seus detalhes;
   * Cada pessoa usuária pode possuir apenas um plano.
 
-* Informações sobre todos as pessoas artistas;
+* Informações sobre todas as pessoas artistas;
   * Uma pessoa artista pode ter vários álbuns;
   * Uma pessoa artista pode ser seguida por várias pessoas usuárias.
 
@@ -240,17 +240,6 @@ Para **"entregar"** seu projeto, siga os passos a seguir:
 
 ---
 
-## Linter
-
-Para garantir a qualidade do código, vamos utilizar neste projeto o linter ESLint. Assim o código estará alinhado com as boas práticas de desenvolvimento, sendo mais legível e de fácil manutenção! Para rodar o *linter* localmente no projeto, execute o comando abaixo: 
-
-`npm run lint`
-
-⚠ PULL REQUESTS COM ISSUES DE LINTER NÃO SERÃO AVALIADAS. ATENTE-SE PARA RESOLVÊ-LAS ANTES DE FINALIZAR O DESENVOLVIMENTO! ⚠
-
-Aqui encontram-se os requisitos do projeto. Em cada requisito você encontrara uma imagem de um protótipo de como sua aplicação deve ficar. Estilo da página não será avaliado.
-
----
 
 # Requisitos do projeto
 
