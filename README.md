@@ -36,7 +36,7 @@ Aqui você vai encontrar os detalhes de como estruturar o desenvolvimento do seu
   - [Desafio 8](#desafio-8)
   - [Desafio 9](#desafio-9)
   - [Desafio 10](#desafio-10)
-  - [Desafio 10](#desafio-11)
+  - [Desafio 11](#desafio-11)
 - [Avisos Finais](#avisos-finais)
 ---
 
