@@ -78,6 +78,11 @@ Você vai trabalhar com normalização e criação de queries. Para cada desafio
 SELECT * FROM SpotifyClone.artista;
 ```
 
+**Dica:** sempre seguir esse padrão e não utilizar a linha abaixo nos arquivos `desafionN.sql`,
+```sql
+use SpotifyClone;
+```
+
 3. Atente-se a detalhes de digitação em seu código. Qualquer diferença em nomes, apelidos, ou CAIXA ALTA e caixa baixa podem invalidar suas respostas.
 
 4. Faça isso até finalizar todos os desafios e depois siga as instruções de como entregar o projeto em [**Instruções para entregar seu projeto**](#instruções-para-entregar-seu-projeto)
