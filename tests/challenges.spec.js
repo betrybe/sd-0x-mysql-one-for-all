@@ -24,6 +24,12 @@ describe('Queries de seleção', () => {
   afterAll(async () => {
     await sequelize.query('DROP DATABASE SpotifyClone;', { type: 'RAW' });
     sequelize.close();
+
+    const importer = new Importer(
+      { user: process.env.MYSQL_USER, password: process.env.MYSQL_PASSWORD, host: process.env.HOSTNAME }
+    );
+    await importer.import('./desafio1.sql');
+    await importer.disconnect();
   });
 
   describe('1 - Normalize as tabelas para a 3ª Forma Normal', () => {
