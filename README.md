@@ -324,7 +324,7 @@ O que será verificado:
 
 - Será validado se o histórico de reprodução está na tabela normalizada.
 
-- Será validado se as informações osbre pessoas seguindo artistas estão na tabela normalizada.
+- Será validado se as informações sobre pessoas seguindo artistas estão na tabela normalizada.
 
 - Será validado se os álbuns estão na tabela normalizada.
 
